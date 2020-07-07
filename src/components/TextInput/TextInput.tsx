@@ -18,10 +18,10 @@ function TextInput({
 	value
 }: TextInputProps) {
 	return (
-		<label className="TextInput flex items-center px-4 py-2 border border-gray-500 rounded-md">
+		<label className="TextInput flex items-center px-4 py-2 border border-gray-500 rounded-md ">
 			{label && <span className="sr-only">{label}</span>}
 			<input
-				className="flex-1"
+				className="flex-1 focus:outline-none"
 				onChange={onChange}
 				placeholder={label}
 				type={type}
@@ -29,7 +29,7 @@ function TextInput({
 			/>
 			{toggleText && (
 				<button
-					className="flex-initial ml-2 text-blue-400 hover:text-blue-500 uppercase text-sm"
+					className="flex-initial ml-2 text-blue-400 hover:text-blue-500 uppercase text-sm focus:outline-none"
 					onClick={onToggle}
 					type="button"
 				>
