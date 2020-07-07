@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, SyntheticEvent, useState } from 'react';
 import Button from '../Button/Button';
 import TextInput from '../TextInput/TextInput';
 
@@ -8,6 +8,7 @@ type TextInputFormProps = {
 
 function TextInputForm({ onSubmit }: TextInputFormProps) {
 	const [value, setValue] = useState('');
+	const [visible, setVisible] = useState(false);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value || '';
@@ -19,13 +20,20 @@ function TextInputForm({ onSubmit }: TextInputFormProps) {
 		onSubmit?.(value);
 	};
 
+	const handleToggle = (e: SyntheticEvent) => {
+		e.preventDefault();
+		setVisible(v => !v);
+	};
+
 	return (
 		<form className="flex" onSubmit={handleSubmit}>
 			<div className="flex-1 mr-2">
 				<TextInput
 					onChange={handleChange}
+					onToggle={handleToggle}
 					label="Enter a word or phrase"
-					type="password"
+					toggleText={visible ? 'hide' : 'show'}
+					type={visible ? 'text' : 'password'}
 					value={value}
 				/>
 			</div>
