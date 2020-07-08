@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 type MaskedTextProps = {
 	text?: string;
@@ -6,7 +6,10 @@ type MaskedTextProps = {
 };
 
 function MaskedText({ text, usedLetters }: MaskedTextProps) {
-	const words = getCharacters(text, usedLetters).split(' ');
+	const words = useMemo(() => getCharacters(text, usedLetters).split(' '), [
+		text,
+		usedLetters
+	]);
 	const parts = words
 		.map((part, index) => {
 			const letters = part.split('').map((letter, i) => (
