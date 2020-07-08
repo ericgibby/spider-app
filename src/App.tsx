@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import TextInputForm from './components/TextInputForm/TextInputForm';
+import StartContainer from './containers/StartContainer';
 
 function App() {
 	return (
@@ -9,7 +9,7 @@ function App() {
 			<div className="my-8">
 				<Switch>
 					<Route path="/start">
-						<TextInputForm
+						<StartContainer
 							onSubmit={(value: string) => {
 								alert(value);
 							}}
