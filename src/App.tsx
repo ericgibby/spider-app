@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import PlayContainer from './containers/PlayContainer';
 import StartContainer from './containers/StartContainer';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 							}}
 						/>
 					</Route>
+					<Route path="/play" component={PlayContainer} />
 					<Redirect path="*" to="/start" />
 				</Switch>
 			</div>
