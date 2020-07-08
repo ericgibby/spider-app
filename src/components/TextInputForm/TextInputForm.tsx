@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, SyntheticEvent, useState } from 'react';
 import Button from '../Button/Button';
 import TextInput from '../TextInput/TextInput';
 
-type TextInputFormProps = {
+export type TextInputFormProps = {
 	onSubmit?: (text: string) => void;
 };
 
