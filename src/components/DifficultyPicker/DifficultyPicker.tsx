@@ -1,12 +1,18 @@
 import React, { ChangeEvent } from 'react';
 
 type DifficultyPickerProps = {
+	disabled?: boolean;
 	options?: { text: string; value: number }[];
 	value?: number;
 	onChange?: (value: number) => void;
 };
 
-function DifficultyPicker({ onChange, options, value }: DifficultyPickerProps) {
+function DifficultyPicker({
+	disabled,
+	onChange,
+	options,
+	value
+}: DifficultyPickerProps) {
 	const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
 		const val = parseInt(e.target.value, 10);
 		onChange?.(val);
@@ -17,6 +23,7 @@ function DifficultyPicker({ onChange, options, value }: DifficultyPickerProps) {
 			<span className="hidden md:inline mr-2">Difficulty:</span>
 			<select
 				className="px-4 py-2 border border-gray-500 rounded-md"
+				disabled={disabled}
 				onChange={handleChange}
 				value={value}
 			>
