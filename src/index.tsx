@@ -6,9 +6,11 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
+const basename = process.env.NODE_ENV === 'production' ? '/spider-app' : '/';
+
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
+		<BrowserRouter basename={basename}>
 			<App />
 		</BrowserRouter>
 	</React.StrictMode>,
