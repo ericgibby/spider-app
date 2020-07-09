@@ -2,6 +2,8 @@
 	"name": "spider-app",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "https://ericgibby.github.io/spider-app",
+	"repository": "https://github.com/ericgibby/spider-app.git",
 	"dependencies": {
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
