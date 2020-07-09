@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import LetterButtons from '../components/LetterButtons/LetterButtons';
 import MaskedText from '../components/MaskedText/MaskedText';
 
 type PlayContainerProps = {
@@ -7,6 +8,12 @@ type PlayContainerProps = {
 };
 
 function PlayContainer({ text }: PlayContainerProps) {
+	const [usedLetters, setUsedLetters] = useState<string[]>([]);
+
+	const handleClick = (letter: string) => {
+		setUsedLetters(previous => [...previous, letter]);
+	};
+
 	return (
 		<>
 			<Link
@@ -15,7 +22,12 @@ function PlayContainer({ text }: PlayContainerProps) {
 			>
 				Start Over
 			</Link>
-			<MaskedText text={text} />
+			<MaskedText text={text} usedLetters={usedLetters} />
+			<LetterButtons
+				onClick={handleClick}
+				text={text}
+				usedLetters={usedLetters}
+			/>
 		</>
 	);
 }
