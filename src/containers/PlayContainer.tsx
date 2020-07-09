@@ -1,14 +1,24 @@
-import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import LetterButtons from '../components/LetterButtons/LetterButtons';
 import MaskedText from '../components/MaskedText/MaskedText';
 import Spider from '../components/Spider/Spider';
+
+const MAX_INCORRECT = 10;
 
 type PlayContainerProps = {
 	text?: string;
 };
 
 function PlayContainer({ text }: PlayContainerProps) {
+	const history = useHistory();
+
+	useEffect(() => {
+		if (!text) {
+			history.push('/start');
+		}
+	}, [history, text]);
+
 	const [usedLetters, setUsedLetters] = useState<string[]>([]);
 
 	const textLetters = useMemo(
