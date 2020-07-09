@@ -9,7 +9,7 @@ function App() {
 	const [text, setText] = useState('');
 
 	const handleSubmit = (value: string) => {
-		setText(value);
+		setText(value.toUpperCase());
 		history.push('/play');
 	};
 
