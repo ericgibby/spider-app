@@ -14,9 +14,11 @@ function App() {
 	};
 
 	return (
-		<div className="App container mx-auto">
-			<h1 className="text-5xl">Spider</h1>
-			<div className="my-8">
+		<div className="App">
+			<header className="py-6 bg-blue-600 text-white">
+				<h1 className="container px-2 mx-auto text-5xl">Spider</h1>
+			</header>
+			<div className="container px-2 my-8 mx-auto">
 				<Switch>
 					<Route path="/start">
 						<StartContainer onSubmit={handleSubmit} />
