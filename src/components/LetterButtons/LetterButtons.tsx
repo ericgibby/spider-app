@@ -6,12 +6,18 @@ const ALPHABET = new Array(26)
 	.map((_, index) => String.fromCharCode(65 + index));
 
 type LetterButtonsProps = {
+	disabled?: boolean;
 	text?: string;
 	usedLetters?: string[];
 	onClick?: (letter: string) => void;
 };
 
-function LetterButtons({ onClick, text, usedLetters }: LetterButtonsProps) {
+function LetterButtons({
+	disabled,
+	onClick,
+	text,
+	usedLetters
+}: LetterButtonsProps) {
 	const handleClick = (e: SyntheticEvent) => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const character = (e.target as any).value;
@@ -35,11 +41,13 @@ function LetterButtons({ onClick, text, usedLetters }: LetterButtonsProps) {
 					? ' bg-red-600 border-red-700 hover:bg-red-700 hover:border-red-800'
 					: ' bg-blue-600 border-blue-700 hover:bg-blue-700 hover:border-blue-800'
 			}${
-				selectedLetters[letter] ? ' opacity-25 cursor-not-allowed' : ''
+				selectedLetters[letter] || disabled
+					? ' opacity-25 cursor-not-allowed'
+					: ''
 			}`}
 			value={letter}
 			onClick={handleClick}
-			disabled={!!selectedLetters[letter]}
+			disabled={!!selectedLetters[letter] || disabled}
 		>
 			{letter}
 		</button>
