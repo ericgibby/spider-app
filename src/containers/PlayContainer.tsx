@@ -68,6 +68,7 @@ function PlayContainer({ text }: PlayContainerProps) {
 		<>
 			<div className="flex flex-col md:flex-row md:items-center md:justify-between">
 				<DifficultyPicker
+					disabled={usedLetters.length > 0}
 					onChange={handleChange}
 					options={DIFFICULTY_OPTIONS}
 					value={maxIncorrect}
