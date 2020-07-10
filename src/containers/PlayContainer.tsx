@@ -31,12 +31,14 @@ function PlayContainer({ text }: PlayContainerProps) {
 
 	const textLetters = useMemo(
 		() =>
-			(text || '')
-				.split('')
-				.reduce(
-					(obj, letter) => ({ ...obj, [letter]: true }),
-					{} as { [letter: string]: boolean }
-				),
+			(text || '').split('').reduce((obj, letter) => {
+				// We only care about characters between 65-90 (A-Z)
+				const code = letter.charCodeAt(0);
+				if (code >= 65 && code <= 90) {
+					return { ...obj, [letter]: true };
+				}
+				return obj;
+			}, {} as { [letter: string]: boolean }),
 		[text]
 	);
 
