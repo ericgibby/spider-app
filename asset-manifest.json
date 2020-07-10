@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/spider-app/static/css/main.fd4728bc.chunk.css",
-    "main.js": "/spider-app/static/js/main.e05b64e6.chunk.js",
-    "main.js.map": "/spider-app/static/js/main.e05b64e6.chunk.js.map",
+    "main.js": "/spider-app/static/js/main.6e9b0d2e.chunk.js",
+    "main.js.map": "/spider-app/static/js/main.6e9b0d2e.chunk.js.map",
     "runtime-main.js": "/spider-app/static/js/runtime-main.ec49a702.js",
     "runtime-main.js.map": "/spider-app/static/js/runtime-main.ec49a702.js.map",
     "static/js/2.63d8043b.chunk.js": "/spider-app/static/js/2.63d8043b.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.1b004f53.chunk.js": "/spider-app/static/js/3.1b004f53.chunk.js",
     "static/js/3.1b004f53.chunk.js.map": "/spider-app/static/js/3.1b004f53.chunk.js.map",
     "index.html": "/spider-app/index.html",
-    "precache-manifest.f509e012f0fe4aa5bd5f30e7599512b3.js": "/spider-app/precache-manifest.f509e012f0fe4aa5bd5f30e7599512b3.js",
+    "precache-manifest.634fd504505af1fafd1e65e643acb009.js": "/spider-app/precache-manifest.634fd504505af1fafd1e65e643acb009.js",
     "service-worker.js": "/spider-app/service-worker.js",
     "static/css/main.fd4728bc.chunk.css.map": "/spider-app/static/css/main.fd4728bc.chunk.css.map",
     "static/js/2.63d8043b.chunk.js.LICENSE.txt": "/spider-app/static/js/2.63d8043b.chunk.js.LICENSE.txt",
@@ -30,6 +30,6 @@
     "static/js/runtime-main.ec49a702.js",
     "static/js/2.63d8043b.chunk.js",
     "static/css/main.fd4728bc.chunk.css",
-    "static/js/main.e05b64e6.chunk.js"
+    "static/js/main.6e9b0d2e.chunk.js"
   ]
 }

@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e47414419b6bc9e285e4316a99a747fb",
+    "revision": "0de73d2d139bd42b4598a2960a716dc3",
     "url": "/spider-app/index.html"
   },
   {
-    "revision": "b41cbffe60236653b79c",
+    "revision": "e3ab7ad4f48136fbdef2",
     "url": "/spider-app/static/css/main.fd4728bc.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/spider-app/static/js/3.1b004f53.chunk.js"
   },
   {
-    "revision": "b41cbffe60236653b79c",
-    "url": "/spider-app/static/js/main.e05b64e6.chunk.js"
+    "revision": "e3ab7ad4f48136fbdef2",
+    "url": "/spider-app/static/js/main.6e9b0d2e.chunk.js"
   },
   {
     "revision": "61a79a727b9d9e9a24e7",
