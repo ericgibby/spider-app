@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import Callout from '../components/Callout/Callout';
 import DifficultyPicker from '../components/DifficultyPicker/DifficultyPicker';
 import LetterButtons from '../components/LetterButtons/LetterButtons';
 import MaskedText from '../components/MaskedText/MaskedText';
@@ -85,30 +86,24 @@ function PlayContainer({ invalid, text }: PlayContainerProps) {
 					</Link>
 				</div>
 			</div>
-			{invalid && (
-				<div className="mt-4 p-6 bg-orange-200 border border-orange-500 rounded-md">
-					Text may contain invalid word(s).{' '}
-					<span role="img" aria-label="confused emoji">
-						😕
-					</span>
-				</div>
-			)}
-			{loser && (
-				<div className="mt-4 p-6 bg-red-200 border border-red-500 rounded-md">
-					Sorry. You lost.{' '}
-					<span role="img" aria-label="sad emoji">
-						😢
-					</span>
-				</div>
-			)}
-			{winner && (
-				<div className="mt-4 p-6 bg-blue-200 border border-blue-500 rounded-md">
-					Congratulations! You won!{' '}
-					<span role="img" aria-label="smiley emoji">
-						😁
-					</span>
-				</div>
-			)}
+			<Callout hidden={!invalid} type="warning">
+				Text may contain invalid word(s).{' '}
+				<span role="img" aria-label="confused emoji">
+					😕
+				</span>
+			</Callout>
+			<Callout hidden={!loser} type="error">
+				Sorry. You lost.{' '}
+				<span role="img" aria-label="sad emoji">
+					😢
+				</span>
+			</Callout>
+			<Callout hidden={!winner} type="success">
+				Congratulations! You won!{' '}
+				<span role="img" aria-label="smiley emoji">
+					😁
+				</span>
+			</Callout>
 			<div className="mb-6 py-4 border-b border-gray-500 text-center">
 				<MaskedText text={text} usedLetters={usedLetters} />
 			</div>
