@@ -14,10 +14,11 @@ const DIFFICULTY_OPTIONS = [
 ];
 
 type PlayContainerProps = {
+	invalid?: boolean;
 	text?: string;
 };
 
-function PlayContainer({ text }: PlayContainerProps) {
+function PlayContainer({ invalid, text }: PlayContainerProps) {
 	const history = useHistory();
 
 	useEffect(() => {
@@ -84,6 +85,14 @@ function PlayContainer({ text }: PlayContainerProps) {
 					</Link>
 				</div>
 			</div>
+			{invalid && (
+				<div className="mt-4 p-6 bg-orange-200 border border-orange-500 rounded-md">
+					Text may contain invalid word(s).{' '}
+					<span role="img" aria-label="confused emoji">
+						😕
+					</span>
+				</div>
+			)}
 			{loser && (
 				<div className="mt-4 p-6 bg-red-200 border border-red-500 rounded-md">
 					Sorry. You lost.{' '}
