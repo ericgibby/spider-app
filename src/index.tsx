@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
+import store from './redux/configureStore';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
@@ -10,9 +12,11 @@ const basename = process.env.NODE_ENV === 'production' ? '/spider-app' : '/';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter basename={basename}>
-			<App />
-		</BrowserRouter>
+		<Provider store={store}>
+			<BrowserRouter basename={basename}>
+				<App />
+			</BrowserRouter>
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
