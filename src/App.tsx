@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
+import { connect, RootStateOrAny } from 'react-redux';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import PlayContainer from './containers/PlayContainer';
 import StartContainer from './containers/StartContainer';
+import { setText } from './redux/modules/play';
 import { lookupWord } from './services/dictionaryApi';
+import { PayloadAction } from '@reduxjs/toolkit';
 
-function App() {
+type AppProps = {
+	text?: string;
+	setText: (text: string) => void;
+};
+
+function App({ setText, text }: AppProps) {
 	const history = useHistory();
 
 	const [invalid, setInvalid] = useState(false);
-	const [text, setText] = useState('');
 
 	const handleSubmit = async (value: string) => {
 		try {
@@ -69,4 +76,16 @@ function App() {
 	);
 }
 
-export default App;
+function mapStateToProps(state: RootStateOrAny) {
+	return {
+		text: state.play.text as string
+	};
+}
+
+function mapDispatchToProps(dispatch: Dispatch<PayloadAction<string>>) {
+	return {
+		setText: (text: string) => dispatch(setText(text))
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
