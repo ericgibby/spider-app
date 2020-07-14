@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Callout from '../components/Callout/Callout';
 import DifficultyPicker from '../components/DifficultyPicker/DifficultyPicker';
 import LetterButtons from '../components/LetterButtons/LetterButtons';
 import MaskedText from '../components/MaskedText/MaskedText';
 import Spider from '../components/Spider/Spider';
-import { addUsedLetter, setMaxIncorrect } from '../redux/modules/play';
+import {
+	addUsedLetter,
+	setMaxIncorrect,
+	updateText
+} from '../redux/modules/play';
 import {
 	selectCorrectCount,
 	selectCurrentStep,
@@ -50,8 +54,12 @@ function PlayContainer() {
 		dispatch(setMaxIncorrect(level));
 	};
 
-	const handleClick = (letter: string) => {
+	const handleClickLetter = (letter: string) => {
 		dispatch(addUsedLetter(letter));
+	};
+
+	const handleClickStartOver = () => {
+		dispatch(updateText(''));
 	};
 
 	return (
@@ -64,12 +72,13 @@ function PlayContainer() {
 					value={maxIncorrect}
 				/>
 				<div className="mt-2 md:mt-0">
-					<Link
+					<button
 						className="px-4 py-2 border border-blue-700 hover:border-blue-800 rounded-md text-blue-700 hover:text-blue-800"
-						to="/start"
+						onClick={handleClickStartOver}
+						type="button"
 					>
 						Start Over
-					</Link>
+					</button>
 				</div>
 			</div>
 			<Callout hidden={!invalid} type="warning">
@@ -97,7 +106,7 @@ function PlayContainer() {
 				<Spider step={step} />
 				<LetterButtons
 					disabled={winner || loser}
-					onClick={handleClick}
+					onClick={handleClickLetter}
 					text={text}
 					usedLetters={usedLetters}
 				/>
