@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import Callout from '../components/Callout/Callout';
 import DifficultyPicker from '../components/DifficultyPicker/DifficultyPicker';
@@ -7,6 +7,7 @@ import LetterButtons from '../components/LetterButtons/LetterButtons';
 import MaskedText from '../components/MaskedText/MaskedText';
 import Spider from '../components/Spider/Spider';
 import { addUsedLetter, setMaxIncorrect } from '../redux/modules/play';
+import { selectMaxIncorrect, selectUsedLetters } from '../redux/selectors/play';
 
 const DIFFICULTY_OPTIONS = [
 	{ text: 'Easy', value: 10 },
@@ -29,12 +30,8 @@ function PlayContainer({ invalid, text }: PlayContainerProps) {
 	}, [history, text]);
 
 	const dispatch = useDispatch();
-	const usedLetters = useSelector(
-		(state: RootStateOrAny) => state.play.usedLetters as string[]
-	);
-	const maxIncorrect = useSelector(
-		(state: RootStateOrAny) => state.play.maxIncorrect as number
-	);
+	const usedLetters = useSelector(selectUsedLetters);
+	const maxIncorrect = useSelector(selectMaxIncorrect);
 
 	const textLetters = useMemo(
 		() =>

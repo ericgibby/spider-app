@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import PlayContainer from './containers/PlayContainer';
 import StartContainer from './containers/StartContainer';
 import { setText } from './redux/modules/play';
+import { selectText } from './redux/selectors/play';
 import { lookupWord } from './services/dictionaryApi';
 
 function App() {
@@ -11,9 +12,7 @@ function App() {
 	const history = useHistory();
 
 	const [invalid, setInvalid] = useState(false);
-	const text = useSelector(
-		(state: RootStateOrAny) => state.play.text as string
-	);
+	const text = useSelector(selectText);
 
 	const handleSubmit = async (value: string) => {
 		try {
