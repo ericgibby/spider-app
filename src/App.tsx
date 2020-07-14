@@ -1,21 +1,19 @@
-import React, { Dispatch, useState } from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
+import React, { useState } from 'react';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import PlayContainer from './containers/PlayContainer';
 import StartContainer from './containers/StartContainer';
 import { setText } from './redux/modules/play';
 import { lookupWord } from './services/dictionaryApi';
-import { PayloadAction } from '@reduxjs/toolkit';
 
-type AppProps = {
-	text?: string;
-	setText: (text: string) => void;
-};
-
-function App({ setText, text }: AppProps) {
+function App() {
+	const dispatch = useDispatch();
 	const history = useHistory();
 
 	const [invalid, setInvalid] = useState(false);
+	const text = useSelector(
+		(state: RootStateOrAny) => state.play.text as string
+	);
 
 	const handleSubmit = async (value: string) => {
 		try {
@@ -51,7 +49,7 @@ function App({ setText, text }: AppProps) {
 			console.error(err);
 			setInvalid(false);
 		} finally {
-			setText(value.toUpperCase());
+			dispatch(setText(value.toUpperCase()));
 			history.push('/play');
 		}
 	};
@@ -76,16 +74,4 @@ function App({ setText, text }: AppProps) {
 	);
 }
 
-function mapStateToProps(state: RootStateOrAny) {
-	return {
-		text: state.play.text as string
-	};
-}
-
-function mapDispatchToProps(dispatch: Dispatch<PayloadAction<string>>) {
-	return {
-		setText: (text: string) => dispatch(setText(text))
-	};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
