@@ -1,58 +1,9 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import PlayContainer from './containers/PlayContainer';
 import StartContainer from './containers/StartContainer';
-import { setText } from './redux/modules/play';
-import { selectText } from './redux/selectors/play';
-import { lookupWord } from './services/dictionaryApi';
 
 function App() {
-	const dispatch = useDispatch();
-	const history = useHistory();
-
-	const [invalid, setInvalid] = useState(false);
-	const text = useSelector(selectText);
-
-	const handleSubmit = async (value: string) => {
-		try {
-			// Get list of unique words
-			const words = Object.keys(
-				// Split on white space to get individual words
-				value.split(/\s/).reduce((obj, word) => {
-					// Remove non-alpha characters at beginning or end of word
-					const key = word
-						.replace(/^[^\w]+|[^\w]+$/, '')
-						.toLowerCase();
-					return { ...obj, [key]: true };
-				}, {} as { [key: string]: boolean })
-			);
-			// Make individual requests in parallel
-			const lookups = words.map(word => {
-				return lookupWord(word);
-			});
-			// Wait for all requests, then check validity of each word
-			const responses = await Promise.all(lookups);
-			const invalid = !responses.reduce((valid, results, index) => {
-				return (
-					valid &&
-					results.some(({ meta }) => {
-						return meta?.stems.includes(words[index]) || false;
-					})
-				);
-			}, true);
-			setInvalid(invalid);
-		} catch (err) {
-			// Don't want to prevent play if there is an API error, and don't
-			// want to potentially show a false warning.
-			console.error(err);
-			setInvalid(false);
-		} finally {
-			dispatch(setText(value.toUpperCase()));
-			history.push('/play');
-		}
-	};
-
 	return (
 		<div className="App">
 			<header className="py-6 bg-blue-600 text-white">
@@ -60,12 +11,8 @@ function App() {
 			</header>
 			<div className="container px-2 my-8 mx-auto">
 				<Switch>
-					<Route path="/start">
-						<StartContainer onSubmit={handleSubmit} />
-					</Route>
-					<Route path="/play">
-						<PlayContainer invalid={invalid} text={text} />
-					</Route>
+					<Route path="/start" component={StartContainer} />
+					<Route path="/play" component={PlayContainer} />
 					<Redirect path="*" to="/start" />
 				</Switch>
 			</div>
