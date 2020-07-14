@@ -9,11 +9,13 @@ import Spider from '../components/Spider/Spider';
 import { addUsedLetter, setMaxIncorrect } from '../redux/modules/play';
 import {
 	selectCorrectCount,
+	selectCurrentStep,
 	selectIncorrectCount,
+	selectInvalid,
 	selectMaxIncorrect,
+	selectText,
 	selectTextLettersMap,
-	selectUsedLetters,
-	selectCurrentStep
+	selectUsedLetters
 } from '../redux/selectors/play';
 
 const DIFFICULTY_OPTIONS = [
@@ -22,27 +24,24 @@ const DIFFICULTY_OPTIONS = [
 	{ text: 'Hard', value: 4 }
 ];
 
-type PlayContainerProps = {
-	invalid?: boolean;
-	text?: string;
-};
-
-function PlayContainer({ invalid, text }: PlayContainerProps) {
+function PlayContainer() {
+	const dispatch = useDispatch();
 	const history = useHistory();
+
+	const correctCount = useSelector(selectCorrectCount);
+	const incorrectCount = useSelector(selectIncorrectCount);
+	const invalid = useSelector(selectInvalid);
+	const maxIncorrect = useSelector(selectMaxIncorrect);
+	const step = useSelector(selectCurrentStep);
+	const text = useSelector(selectText);
+	const textLetters = useSelector(selectTextLettersMap);
+	const usedLetters = useSelector(selectUsedLetters);
 
 	useEffect(() => {
 		if (!text) {
 			history.push('/start');
 		}
 	}, [history, text]);
-
-	const dispatch = useDispatch();
-	const correctCount = useSelector(selectCorrectCount);
-	const incorrectCount = useSelector(selectIncorrectCount);
-	const maxIncorrect = useSelector(selectMaxIncorrect);
-	const step = useSelector(selectCurrentStep);
-	const textLetters = useSelector(selectTextLettersMap);
-	const usedLetters = useSelector(selectUsedLetters);
 
 	const loser = incorrectCount === maxIncorrect;
 	const winner = correctCount === Object.keys(textLetters).length;
