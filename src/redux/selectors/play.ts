@@ -1,6 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootStateOrAny } from 'react-redux';
 
+export function selectInvalid(state: RootStateOrAny) {
+	return !!state.play.invalid;
+}
+
 export function selectMaxIncorrect(state: RootStateOrAny) {
 	return state.play.maxIncorrect as number;
 }
