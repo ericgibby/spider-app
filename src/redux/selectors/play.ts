@@ -44,3 +44,19 @@ export const selectIncorrectCount = createSelector(
 			0
 		)
 );
+
+export const selectCurrentStep = createSelector(
+	[selectIncorrectCount, selectMaxIncorrect],
+	(incorrectCount, maxIncorrect) => {
+		if (incorrectCount <= 2) {
+			return incorrectCount;
+		}
+		if (maxIncorrect === 6) {
+			return [4, 6, 8, 10][incorrectCount - 3];
+		}
+		if (maxIncorrect === 4) {
+			return [6, 10][incorrectCount - 3];
+		}
+		return incorrectCount;
+	}
+);

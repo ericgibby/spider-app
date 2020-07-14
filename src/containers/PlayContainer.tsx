@@ -12,7 +12,8 @@ import {
 	selectIncorrectCount,
 	selectMaxIncorrect,
 	selectTextLettersMap,
-	selectUsedLetters
+	selectUsedLetters,
+	selectCurrentStep
 } from '../redux/selectors/play';
 
 const DIFFICULTY_OPTIONS = [
@@ -39,12 +40,12 @@ function PlayContainer({ invalid, text }: PlayContainerProps) {
 	const correctCount = useSelector(selectCorrectCount);
 	const incorrectCount = useSelector(selectIncorrectCount);
 	const maxIncorrect = useSelector(selectMaxIncorrect);
+	const step = useSelector(selectCurrentStep);
 	const textLetters = useSelector(selectTextLettersMap);
 	const usedLetters = useSelector(selectUsedLetters);
 
 	const loser = incorrectCount === maxIncorrect;
 	const winner = correctCount === Object.keys(textLetters).length;
-	const step = getCurrentStep(incorrectCount, maxIncorrect);
 
 	const handleChange = (level: number) => {
 		dispatch(setMaxIncorrect(level));
@@ -107,16 +108,3 @@ function PlayContainer({ invalid, text }: PlayContainerProps) {
 }
 
 export default PlayContainer;
-
-function getCurrentStep(incorrectCount: number, maxIncorrect: number) {
-	if (incorrectCount <= 2) {
-		return incorrectCount;
-	}
-	if (maxIncorrect === 6) {
-		return [4, 6, 8, 10][incorrectCount - 3];
-	}
-	if (maxIncorrect === 4) {
-		return [6, 10][incorrectCount - 3];
-	}
-	return incorrectCount;
-}
