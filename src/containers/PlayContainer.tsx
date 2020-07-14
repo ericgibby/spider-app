@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import Callout from '../components/Callout/Callout';
@@ -7,7 +7,13 @@ import LetterButtons from '../components/LetterButtons/LetterButtons';
 import MaskedText from '../components/MaskedText/MaskedText';
 import Spider from '../components/Spider/Spider';
 import { addUsedLetter, setMaxIncorrect } from '../redux/modules/play';
-import { selectMaxIncorrect, selectUsedLetters } from '../redux/selectors/play';
+import {
+	selectCorrectCount,
+	selectIncorrectCount,
+	selectMaxIncorrect,
+	selectTextLettersMap,
+	selectUsedLetters
+} from '../redux/selectors/play';
 
 const DIFFICULTY_OPTIONS = [
 	{ text: 'Easy', value: 10 },
@@ -30,33 +36,11 @@ function PlayContainer({ invalid, text }: PlayContainerProps) {
 	}, [history, text]);
 
 	const dispatch = useDispatch();
-	const usedLetters = useSelector(selectUsedLetters);
+	const correctCount = useSelector(selectCorrectCount);
+	const incorrectCount = useSelector(selectIncorrectCount);
 	const maxIncorrect = useSelector(selectMaxIncorrect);
-
-	const textLetters = useMemo(
-		() =>
-			(text || '').split('').reduce((obj, letter) => {
-				// We only care about characters between 65-90 (A-Z)
-				const code = letter.charCodeAt(0);
-				if (code >= 65 && code <= 90) {
-					return { ...obj, [letter]: true };
-				}
-				return obj;
-			}, {} as { [letter: string]: boolean }),
-		[text]
-	);
-
-	const [correctCount, incorrectCount] = useMemo(
-		() =>
-			usedLetters.reduce(
-				([correct, incorrect], letter) =>
-					textLetters[letter]
-						? [correct + 1, incorrect]
-						: [correct, incorrect + 1],
-				[0, 0]
-			),
-		[textLetters, usedLetters]
-	);
+	const textLetters = useSelector(selectTextLettersMap);
+	const usedLetters = useSelector(selectUsedLetters);
 
 	const loser = incorrectCount === maxIncorrect;
 	const winner = correctCount === Object.keys(textLetters).length;
