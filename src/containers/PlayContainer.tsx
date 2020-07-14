@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import Callout from '../components/Callout/Callout';
 import DifficultyPicker from '../components/DifficultyPicker/DifficultyPicker';
 import LetterButtons from '../components/LetterButtons/LetterButtons';
 import MaskedText from '../components/MaskedText/MaskedText';
 import Spider from '../components/Spider/Spider';
-
-const DEFAULT_MAX_INCORRECT = 10;
+import { addUsedLetter, setMaxIncorrect } from '../redux/modules/play';
 
 const DIFFICULTY_OPTIONS = [
 	{ text: 'Easy', value: 10 },
@@ -28,8 +28,13 @@ function PlayContainer({ invalid, text }: PlayContainerProps) {
 		}
 	}, [history, text]);
 
-	const [usedLetters, setUsedLetters] = useState<string[]>([]);
-	const [maxIncorrect, setMaxIncorrect] = useState(DEFAULT_MAX_INCORRECT);
+	const dispatch = useDispatch();
+	const usedLetters = useSelector(
+		(state: RootStateOrAny) => state.play.usedLetters as string[]
+	);
+	const maxIncorrect = useSelector(
+		(state: RootStateOrAny) => state.play.maxIncorrect as number
+	);
 
 	const textLetters = useMemo(
 		() =>
@@ -61,11 +66,11 @@ function PlayContainer({ invalid, text }: PlayContainerProps) {
 	const step = getCurrentStep(incorrectCount, maxIncorrect);
 
 	const handleChange = (level: number) => {
-		setMaxIncorrect(level);
+		dispatch(setMaxIncorrect(level));
 	};
 
 	const handleClick = (letter: string) => {
-		setUsedLetters(previous => [...previous, letter]);
+		dispatch(addUsedLetter(letter));
 	};
 
 	return (
