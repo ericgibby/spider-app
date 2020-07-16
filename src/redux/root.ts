@@ -1,5 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import play from './modules/play';
+import { combineEpics, Epic } from 'redux-observable';
+import play, { setTextEpic } from './modules/play';
+
+export const rootEpic = combineEpics(setTextEpic) as Epic;
 
 const rootReducer = combineReducers({ play });
 
