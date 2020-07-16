@@ -10,6 +10,8 @@
 		"react-dom": "^16.13.1",
 		"react-redux": "^7.2.0",
 		"react-router-dom": "^5.2.0",
+		"redux-observable": "^1.2.0",
+		"rxjs": "^6.6.0",
 		"tailwindcss": "^1.4.6",
 		"web-vitals": "^0.2.2"
 	},
