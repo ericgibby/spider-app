@@ -6,11 +6,7 @@ import DifficultyPicker from '../components/DifficultyPicker/DifficultyPicker';
 import LetterButtons from '../components/LetterButtons/LetterButtons';
 import MaskedText from '../components/MaskedText/MaskedText';
 import Spider from '../components/Spider/Spider';
-import {
-	addUsedLetter,
-	setMaxIncorrect,
-	updateText
-} from '../redux/modules/play';
+import { addUsedLetter, setMaxIncorrect, setText } from '../redux/modules/play';
 import {
 	selectCorrectCount,
 	selectCurrentStep,
@@ -59,7 +55,7 @@ function PlayContainer() {
 	};
 
 	const handleClickStartOver = () => {
-		dispatch(updateText(''));
+		dispatch(setText(''));
 	};
 
 	return (

@@ -1,4 +1,7 @@
-import { createAction, createReducer, Dispatch } from '@reduxjs/toolkit';
+import { createAction, createReducer, PayloadAction } from '@reduxjs/toolkit';
+import { ActionsObservable, ofType } from 'redux-observable';
+import { forkJoin, of, from } from 'rxjs';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { lookupWord } from '../../services/dictionaryApi';
 
 export const DEFAULT_MAX_INCORRECT = 10;
@@ -8,13 +11,15 @@ export const DEFAULT_MAX_INCORRECT = 10;
 export const addUsedLetter = createAction<string>('play/ADD_USED_LETTER');
 export const setInvalid = createAction<boolean>('play/SET_INVALID');
 export const setMaxIncorrect = createAction<number>('play/SET_MAX_INCORRECT');
-export const updateText = createAction<string>('play/UPDATE_TEXT');
+export const setText = createAction<string>('play/SET_TEXT');
 
-// Thunks
+// Epics
 
-export function setText(text: string) {
-	return async (dispatch: Dispatch) => {
-		try {
+export function setTextEpic(action$: ActionsObservable<PayloadAction<string>>) {
+	return action$.pipe(
+		ofType(setText.type),
+		filter(({ payload }) => !!payload),
+		switchMap(({ payload: text }) => {
 			// Get list of unique words
 			const words = Object.keys(
 				// Split on white space to get individual words
@@ -26,31 +31,37 @@ export function setText(text: string) {
 					return { ...obj, [key]: true };
 				}, {} as { [key: string]: boolean })
 			);
+
 			// Make individual requests in parallel
 			const lookups = words.map(word => {
-				return lookupWord(word);
+				return from(lookupWord(word));
 			});
-			// Wait for all requests, then check validity of each word
-			const responses = await Promise.all(lookups);
-			const invalid = !responses.reduce((valid, results, index) => {
-				return (
-					valid &&
-					results.some(({ meta }) => {
-						return meta?.stems.includes(words[index]) || false;
-					})
-				);
-			}, true);
-			dispatch(setInvalid(invalid));
-		} catch (err) {
-			console.error(err);
 
-			// Don't want to prevent play if there is an API error, and don't
-			// want to potentially show a false warning.
-			dispatch(setInvalid(false));
-		} finally {
-			dispatch(updateText(text.toUpperCase()));
-		}
-	};
+			// Wait for all requests, then check validity of each word
+			return forkJoin(lookups).pipe(
+				map(results => {
+					const invalid = !results.reduce((valid, results, index) => {
+						return (
+							valid &&
+							results.some(({ meta }) => {
+								return (
+									meta?.stems.includes(words[index]) || false
+								);
+							})
+						);
+					}, true);
+					return setInvalid(invalid);
+				}),
+				catchError(err => {
+					console.error(err);
+
+					// Don't want to potentially show a false warning if there
+					// is an API error.
+					return of(setInvalid(false));
+				})
+			);
+		})
+	);
 }
 
 // Reducer
@@ -81,9 +92,9 @@ const reducer = createReducer(
 				...state,
 				maxIncorrect
 			}))
-			.addCase(updateText, (state, { payload: text }) => ({
+			.addCase(setText, (state, { payload: text }) => ({
 				...state,
-				text,
+				text: text?.toUpperCase(),
 				usedLetters: []
 			}))
 );
