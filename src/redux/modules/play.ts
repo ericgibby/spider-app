@@ -1,7 +1,7 @@
 import { createAction, createReducer, PayloadAction } from '@reduxjs/toolkit';
 import { ActionsObservable, ofType } from 'redux-observable';
 import { forkJoin, of } from 'rxjs';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { lookupWord } from '../../services/dictionaryApi';
 
 export const DEFAULT_MAX_INCORRECT = 10;
@@ -9,6 +9,7 @@ export const DEFAULT_MAX_INCORRECT = 10;
 // Action creators
 
 export const addUsedLetter = createAction<string>('play/ADD_USED_LETTER');
+export const cancelSetText = createAction('play/CANCEL_SET_TEXT');
 export const setInvalid = createAction<boolean>('play/SET_INVALID');
 export const setMaxIncorrect = createAction<number>('play/SET_MAX_INCORRECT');
 export const setText = createAction<string>('play/SET_TEXT');
@@ -39,6 +40,7 @@ export function setTextEpic(action$: ActionsObservable<PayloadAction<string>>) {
 
 			// Wait for all requests, then check validity of each word
 			return forkJoin(lookups).pipe(
+				takeUntil(action$.pipe(ofType(cancelSetText.type))),
 				map(results => {
 					const invalid = !results.reduce((valid, results, index) => {
 						return (
