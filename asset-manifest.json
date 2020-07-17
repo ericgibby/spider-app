@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/spider-app/static/css/main.fd4728bc.chunk.css",
-    "main.js": "/spider-app/static/js/main.6e9b0d2e.chunk.js",
-    "main.js.map": "/spider-app/static/js/main.6e9b0d2e.chunk.js.map",
-    "runtime-main.js": "/spider-app/static/js/runtime-main.ec49a702.js",
-    "runtime-main.js.map": "/spider-app/static/js/runtime-main.ec49a702.js.map",
-    "static/js/2.63d8043b.chunk.js": "/spider-app/static/js/2.63d8043b.chunk.js",
-    "static/js/2.63d8043b.chunk.js.map": "/spider-app/static/js/2.63d8043b.chunk.js.map",
-    "static/js/3.1b004f53.chunk.js": "/spider-app/static/js/3.1b004f53.chunk.js",
-    "static/js/3.1b004f53.chunk.js.map": "/spider-app/static/js/3.1b004f53.chunk.js.map",
+    "main.css": "/spider-app/static/css/main.468f5af7.chunk.css",
+    "main.js": "/spider-app/static/js/main.50687e19.chunk.js",
+    "main.js.map": "/spider-app/static/js/main.50687e19.chunk.js.map",
+    "runtime-main.js": "/spider-app/static/js/runtime-main.a61aace2.js",
+    "runtime-main.js.map": "/spider-app/static/js/runtime-main.a61aace2.js.map",
+    "static/js/2.6d35fe1b.chunk.js": "/spider-app/static/js/2.6d35fe1b.chunk.js",
+    "static/js/2.6d35fe1b.chunk.js.map": "/spider-app/static/js/2.6d35fe1b.chunk.js.map",
+    "static/js/3.2d71d513.chunk.js": "/spider-app/static/js/3.2d71d513.chunk.js",
+    "static/js/3.2d71d513.chunk.js.map": "/spider-app/static/js/3.2d71d513.chunk.js.map",
     "index.html": "/spider-app/index.html",
-    "precache-manifest.634fd504505af1fafd1e65e643acb009.js": "/spider-app/precache-manifest.634fd504505af1fafd1e65e643acb009.js",
+    "precache-manifest.a9b56c05390bba8e086cab7ce1626651.js": "/spider-app/precache-manifest.a9b56c05390bba8e086cab7ce1626651.js",
     "service-worker.js": "/spider-app/service-worker.js",
-    "static/css/main.fd4728bc.chunk.css.map": "/spider-app/static/css/main.fd4728bc.chunk.css.map",
-    "static/js/2.63d8043b.chunk.js.LICENSE.txt": "/spider-app/static/js/2.63d8043b.chunk.js.LICENSE.txt",
+    "static/css/main.468f5af7.chunk.css.map": "/spider-app/static/css/main.468f5af7.chunk.css.map",
+    "static/js/2.6d35fe1b.chunk.js.LICENSE.txt": "/spider-app/static/js/2.6d35fe1b.chunk.js.LICENSE.txt",
     "static/media/spider-00.svg": "/spider-app/static/media/spider-00.232ad789.svg",
     "static/media/spider-01.svg": "/spider-app/static/media/spider-01.94a5fbe9.svg",
     "static/media/spider-02.svg": "/spider-app/static/media/spider-02.5adff19f.svg",
@@ -27,9 +27,9 @@
     "static/media/spider-10.svg": "/spider-app/static/media/spider-10.6a37e96e.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.ec49a702.js",
-    "static/js/2.63d8043b.chunk.js",
-    "static/css/main.fd4728bc.chunk.css",
-    "static/js/main.6e9b0d2e.chunk.js"
+    "static/js/runtime-main.a61aace2.js",
+    "static/js/2.6d35fe1b.chunk.js",
+    "static/css/main.468f5af7.chunk.css",
+    "static/js/main.50687e19.chunk.js"
   ]
 }
