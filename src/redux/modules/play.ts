@@ -1,6 +1,6 @@
 import { createAction, createReducer, PayloadAction } from '@reduxjs/toolkit';
 import { ActionsObservable, ofType } from 'redux-observable';
-import { forkJoin, of, from } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { lookupWord } from '../../services/dictionaryApi';
 
@@ -34,7 +34,7 @@ export function setTextEpic(action$: ActionsObservable<PayloadAction<string>>) {
 
 			// Make individual requests in parallel
 			const lookups = words.map(word => {
-				return from(lookupWord(word));
+				return lookupWord(word);
 			});
 
 			// Wait for all requests, then check validity of each word
