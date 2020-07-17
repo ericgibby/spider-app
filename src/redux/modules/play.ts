@@ -32,10 +32,10 @@ export function setText(text: string) {
 			});
 			// Wait for all requests, then check validity of each word
 			const responses = await Promise.all(lookups);
-			const invalid = !responses.reduce((valid, results) => {
+			const invalid = !responses.reduce((valid, results, index) => {
 				return (
 					valid &&
-					results.some(({ meta }, index) => {
+					results.some(({ meta }) => {
 						return meta?.stems.includes(words[index]) || false;
 					})
 				);
