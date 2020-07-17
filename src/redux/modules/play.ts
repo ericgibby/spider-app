@@ -1,7 +1,15 @@
 import { createAction, createReducer, PayloadAction } from '@reduxjs/toolkit';
 import { ActionsObservable, ofType } from 'redux-observable';
-import { forkJoin, of } from 'rxjs';
-import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { forkJoin, of, range, timer, zip } from 'rxjs';
+import {
+	catchError,
+	filter,
+	map,
+	mergeMap,
+	retryWhen,
+	switchMap,
+	takeUntil
+} from 'rxjs/operators';
 import { lookupWord } from '../../services/dictionaryApi';
 
 export const DEFAULT_MAX_INCORRECT = 10;
@@ -35,7 +43,13 @@ export function setTextEpic(action$: ActionsObservable<PayloadAction<string>>) {
 
 			// Make individual requests in parallel
 			const lookups = words.map(word => {
-				return lookupWord(word);
+				return lookupWord(word).pipe(
+					retryWhen(errors$ =>
+						zip(range(0, 3), errors$).pipe(
+							mergeMap(([attempt]) => timer(attempt * 1000))
+						)
+					)
+				);
 			});
 
 			// Wait for all requests, then check validity of each word
