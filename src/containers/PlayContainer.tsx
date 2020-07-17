@@ -6,7 +6,12 @@ import DifficultyPicker from '../components/DifficultyPicker/DifficultyPicker';
 import LetterButtons from '../components/LetterButtons/LetterButtons';
 import MaskedText from '../components/MaskedText/MaskedText';
 import Spider from '../components/Spider/Spider';
-import { addUsedLetter, setMaxIncorrect, setText } from '../redux/modules/play';
+import {
+	addUsedLetter,
+	setMaxIncorrect,
+	setText,
+	cancelSetText
+} from '../redux/modules/play';
 import {
 	selectCorrectCount,
 	selectCurrentStep,
@@ -41,7 +46,10 @@ function PlayContainer() {
 		if (!text) {
 			history.push('/start');
 		}
-	}, [history, text]);
+		return () => {
+			dispatch(cancelSetText());
+		};
+	}, [dispatch, history, text]);
 
 	const loser = incorrectCount === maxIncorrect;
 	const winner = correctCount === Object.keys(textLetters).length;
