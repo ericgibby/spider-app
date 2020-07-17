@@ -11,6 +11,7 @@
 		"react-redux": "^7.2.0",
 		"react-router-dom": "^5.2.0",
 		"redux-observable": "^1.2.0",
+		"redux-persist": "^6.0.0",
 		"rxjs": "^6.6.0",
 		"tailwindcss": "^1.4.6",
 		"web-vitals": "^0.2.2"
@@ -26,6 +27,7 @@
 		"@types/react-dom": "^16.9.0",
 		"@types/react-redux": "^7.1.9",
 		"@types/react-router-dom": "^5.1.5",
+		"@types/redux-persist": "^4.3.1",
 		"autoprefixer": "^9.8.4",
 		"husky": "^4.2.5",
 		"lint-staged": "^10.2.11",
